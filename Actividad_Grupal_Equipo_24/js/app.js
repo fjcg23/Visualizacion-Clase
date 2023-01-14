@@ -38,8 +38,6 @@ const gCostos = svg
   .append("g")
   .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
-let columna = 'Desempleados'
-
 // Data
 let data = [
   {
@@ -150,13 +148,9 @@ let data = [
 ]
 
 let columnas = Object.keys(data[0])
+let columna = 'Desempleados'
 
-console.log(columnas)
-
-const color = d3
-  .scaleOrdinal()
-  .domain(columnas)
-  .range(d3.schemeSet3)
+//console.log(columnas)
 
 // Escaladores
 const y = d3
@@ -176,6 +170,11 @@ const x = d3
   .paddingInner(0.2)
   .paddingOuter(0.1)
 
+const color = d3
+  .scaleOrdinal()
+  .domain(columnas)
+  .range(d3.schemeSet3)
+
 // Ejes
 const xAxis = d3.axisBottom(x)
 const xAxisGroup = g
@@ -194,7 +193,7 @@ const yAxisGroup2 = g
   .attr("transform", `translate(${ancho}, 0)`)
   .call(yAxis2)
 
-  col
+col
   .selectAll("option")
   .data(columnas.slice(1))
   .enter()
