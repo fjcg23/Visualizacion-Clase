@@ -30,11 +30,11 @@ const g = svg
   .append("g")
   .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
-const gDesempleados = svg
+const gVentas = svg
   .append("g")
   .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
-const gEmpleados = svg
+const gCostos = svg
   .append("g")
   .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
@@ -158,10 +158,10 @@ const y = d3
   .domain([0, d3.max(data, (d) => d.Desempleados)])
   .range([alto, 0])
 
-//const y2 = d3
-//  .scaleLinear()
-//  .domain([0, d3.max(data, (d) => d.Empleados)])
-//  .range([alto, 0])
+const y2 = d3
+  .scaleLinear()
+  .domain([0, d3.max(data, (d) => d.Empleados)])
+  .range([alto, 0])
 
 const x = d3
   .scaleBand()
@@ -173,7 +173,7 @@ const x = d3
 const color = d3
   .scaleOrdinal()
   .domain(columnas)
-  .range(d3.schemeSet2)
+  .range(d3.schemeSet3)
 
 // Ejes
 const xAxis = d3.axisBottom(x)
@@ -183,31 +183,15 @@ const xAxisGroup = g
   .attr("transform", `translate(0, ${alto})`)
   .call(xAxis)
 
-  g.append("text")
-    .attr("x", ancho / 2)
-    .attr("y", alto + 40)
-    .attr("text-anchor", "middle")
-    .attr("class", "labels")
-    .text("Años")
-  
-    g.append("g")
-    .attr("transform", `translate(0, ${alto / 2})`)
-    .append("text")
-    .attr("y", -58)
-    .attr("transform", "rotate(-90)")
-    .attr("text-anchor", "middle")
-    .attr("class", "labels")
-    .text("Desempleo (Personas)")
-
 const yAxis = d3.axisLeft(y)
 const yAxisGroup = g.append("g").attr("class", "ejes").call(yAxis)
 
-//const yAxis2 = d3.axisRight(y2)
-//const yAxisGroup2 = g
-//  .append("g")
-//  .attr("class", "ejes")
-//  .attr("transform", `translate(${ancho}, 0)`)
-//  .call(yAxis2)
+const yAxis2 = d3.axisRight(y2)
+const yAxisGroup2 = g
+  .append("g")
+  .attr("class", "ejes")
+  .attr("transform", `translate(${ancho}, 0)`)
+  .call(yAxis2)
 
 col
   .selectAll("option")
@@ -230,7 +214,7 @@ col
             .attr("y", (d) => y(0))
             .attr("width", x.bandwidth())
             .attr("height", 0)
-            .attr("fill", "#0077b6")
+            .attr("fill", "#00cc00")
             .transition()
             .duration(2000)
             .attr("y", (d) => y(d[columna]))
